@@ -1,0 +1,14 @@
+# فایل‌های محیط مجازی پایتون
+venv/
+*.pyc
+__pycache__/
+
+# فایل پایگاه داده SQLite محلی
+backend/instance/database.db
+
+# فایل کلیدهای API و تنظیمات محرمانه
+backend/.env
+
+# فایل‌های سیستم عامل
+.DS_Store
+Thumbs.db

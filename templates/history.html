@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Persona History</h2>
+    {% if personas %}
+        {% for persona in personas %}
+            <div style="border: 1px solid #ccc; margin-bottom: 15px; padding: 10px; border-radius: 5px; background-color: #f9f9f9;">
+                <p><strong>Artist:</strong> {{ persona.artist_name }}</p>
+                <p><strong>Style:</strong> {{ persona.artist_style }}</p>
+                <p><strong>Inspirations:</strong> {{ persona.artist_inspirations }}</p>
+                <hr>
+                <p>{{ persona.generated_text | safe }}</p> <small>Created on: {{ persona.created_at.strftime('%Y-%m-%d %H:%M:%S') }} UTC</small>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No personas created yet.</p>
+    {% endif %}
+{% endblock content %}
