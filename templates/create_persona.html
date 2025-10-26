@@ -1,38 +1,45 @@
-{% extends "layout.html" %} {# از قالب پایه استفاده می‌کنیم #}
-{% block content %} {# محتوای اصلی را در این بلاک قرار می‌دهیم #}
+{% extends "layout.html" %}
+{% block content %}
 
-    {# کانتینر اصلی فرم، از استایل‌های style.css استفاده می‌کند #}
     <div class="form-container">
         <h1>Persona Studio</h1>
         <p>Your AI-powered partner for crafting the perfect artist identity.</p>
 
-        {# فرم HTML - نیازی به method="POST" نیست چون با JavaScript ارسال می‌شود #}
+        {# فرم HTML - ID فرم اضافه شده برای اطمینان بیشتر #}
         <form id="personaForm">
+
             <div class="form-group">
                 <label for="artist-name">Artist Name:</label><br>
-                <input type="text" id="artist-name" name="artist-name"><br><br>
+                <input type="text" id="artist-name" name="artist-name">
+                {# <br><br> اضافی حذف شد چون form-group فاصله ایجاد می‌کند #}
             </div>
+
             <div class="form-group">
                 <label for="artist-style">Style / Genre:</label><br>
-                <input type="text" id="artist-style" name="artist-style"><br><br>
+                <input type="text" id="artist-style" name="artist-style">
             </div>
-             <div class="form-group">
+
+            <div class="form-group">
                 <label for="artist-inspirations">Inspirations:</label><br>
-                {# کلاس width: 100% از style.css اعمال می‌شود #}
-                <textarea id="artist-inspirations" name="artist-inspirations" rows="4"></textarea><br><br>
+                {# استایل عرض 100% بهتر است در CSS باشد، اما فعلا نگه می‌داریم #}
+                <textarea id="artist-inspirations" name="artist-inspirations" rows="4" style="width: 100%; box-sizing: border-box;"></textarea>
+                 {# box-sizing اضافه شد تا padding داخلی عرض را خراب نکند #}
             </div>
-             <div class="form-group">
-                {# دکمه باید یک ID داشته باشد تا JavaScript آن را پیدا کند #}
+
+            <div class="form-group">
+                {# اطمینان از صحت کامل تگ دکمه #}
                 <button type="button" id="createButton">Create My Persona</button>
             </div>
-        </form>
-         {# محلی برای نمایش نتیجه #}
-         <div id="result-container" style="margin-top: 30px;">
-            </div>
-    </div>
 
-    {# فراخوانی فایل script.js با استفاده از url_for #}
-    {# Flask به صورت خودکار مسیر صحیح فایل را پیدا می‌کند #}
+        </form> {# تگ فرم بسته شد #}
+
+        {# محلی برای نمایش نتیجه #}
+        <div id="result-container" style="margin-top: 30px;">
+            </div>
+
+    </div> {# تگ form-container بسته شد #}
+
+    {# فراخوانی اسکریپت در انتها #}
     <script src="/script.js"></script>
 
 {% endblock content %}
