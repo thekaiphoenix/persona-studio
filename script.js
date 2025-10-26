@@ -1,57 +1,59 @@
-console.log("Script loaded (Simple Version).");
+console.log("Script loaded (Selector Test Version).");
 
-// مستقیماً تلاش برای پیدا کردن دکمه با هر دو روش
-const buttonById = document.getElementById('createButton');
-const buttonByQuery = document.querySelector('#createButton');
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log("DOMContentLoaded event fired.");
 
-// لاگ کردن نتیجه‌ی هر دو جستجو
-console.log("Attempting to find button...");
-console.log("Result via getElementById:", buttonById);
-console.log("Result via querySelector:", buttonByQuery);
+    setTimeout(() => {
+        console.log("setTimeout callback executed.");
 
-// بررسی نوع نتیجه querySelector (مهم‌ترین لاگ)
-console.log("Type of querySelector result:", typeof buttonByQuery, buttonByQuery);
+        // --- تغییر کلیدی: پیدا کردن *تمام* دکمه‌ها ---
+        const allButtons = document.querySelectorAll('button');
+        console.log("Found buttons:", allButtons); // ببینیم چه دکمه‌هایی پیدا می‌شوند
 
-// انتخاب دکمه‌ای که پیدا شده (اگر پیدا شده باشد)
-const createButton = buttonByQuery || buttonById; // اولویت با querySelector
+        // حالا سعی می‌کنیم دکمه‌ی خودمان را از بین آن‌ها با ID پیدا کنیم
+        let createButton = null; // متغیر را اول null تعریف می‌کنیم
+        allButtons.forEach(button => {
+            console.log("Checking button with ID:", button.id); // ID هر دکمه را لاگ می‌گیریم
+            if (button.id === 'createButton') {
+                createButton = button; // اگر پیدا شد، آن را ذخیره می‌کنیم
+            }
+        });
+        // --- پایان تغییر ---
 
-if (createButton && typeof createButton === 'object' && createButton.tagName === 'BUTTON') {
-    // فقط اگر واقعاً یک المان دکمه پیدا کردیم
-    console.log("Button element confirmed. Adding event listener.");
-    createButton.addEventListener('click', () => {
-        console.log("Create button clicked.");
-
-        // پیدا کردن بقیه المان‌ها فقط در زمان کلیک (برای اطمینان بیشتر)
+        // بقیه المان‌ها را مثل قبل پیدا می‌کنیم
         const artistNameInput = document.getElementById('artist-name');
         const artistStyleInput = document.getElementById('artist-style');
         const artistInspirationsInput = document.getElementById('artist-inspirations');
         const resultContainer = document.getElementById('result-container');
 
-        if (!artistNameInput || !artistStyleInput || !artistInspirationsInput || !resultContainer) {
-            console.error("Error: Could not find input/output elements during click.");
-            if (resultContainer) resultContainer.innerHTML = `<p style="color: red;">Error finding form elements.</p>`;
-            return; // متوقف کردن اجرا اگر المان‌ها پیدا نشدند
+        // لاگ وضعیت پیدا شدن (حالا createButton را چک می‌کنیم)
+        console.log("Elements found (Button via querySelectorAll):", {
+            artistNameInput: !!artistNameInput,
+            artistStyleInput: !!artistStyleInput,
+            artistInspirationsInput: !!artistInspirationsInput,
+            createButton: !!createButton, // آیا این بار true می‌شود؟
+            resultContainer: !!resultContainer
+        });
+
+        if (createButton && artistNameInput && artistStyleInput && artistInspirationsInput && resultContainer) {
+            console.log("All elements found. Adding event listener.");
+            createButton.addEventListener('click', () => {
+                // ... کد ارسال fetch (بدون تغییر) ...
+                 console.log("Create button clicked.");
+                 const dataToSend = { /* ... */ };
+                 resultContainer.innerHTML = '<p>Creating magic... Please wait.</p>';
+                 console.log("Sending data:", dataToSend);
+                 fetch('https://phoenix-backend-rzd0.onrender.com/generate-persona', { /* ... */ })
+                     .then(response => { /* ... */ })
+                     .then(data => { /* ... */ })
+                     .catch((error) => { /* ... */ });
+
+            });
+        } else {
+            console.error("CRITICAL ERROR: Essential elements null or button check failed.");
+            if(resultContainer) {
+                 resultContainer.innerHTML = `<p style="color: red;">Critical page initialization error. Button ID mismatch or element not found.</p>`;
+            }
         }
-
-        const dataToSend = {
-            name: artistNameInput.value,
-            style: artistStyleInput.value,
-            inspirations: artistInspirationsInput.value
-        };
-
-        resultContainer.innerHTML = '<p>Creating magic... Please wait.</p>';
-        console.log("Sending data:", dataToSend);
-
-        fetch('https://phoenix-backend-rzd0.onrender.com/generate-persona', { /* ... */ })
-            .then(response => { /* ... */ })
-            .then(data => { /* ... */ })
-            .catch((error) => { /* ... */ });
-    });
-} else {
-    // اگر دکمه پیدا نشد یا از نوع درستی نبود
-    console.error("CRITICAL ERROR: Button element not found or invalid.");
-    const errorContainer = document.getElementById('result-container');
-    if (errorContainer) {
-        errorContainer.innerHTML = `<p style="color: red;">Critical Error: Could not initialize button. Type: ${typeof createButton}</p>`;
-    }
-}
+    }, 0);
+});
