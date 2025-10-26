@@ -18,7 +18,7 @@ if (createButton && artistNameInput && artistStyleInput && artistInspirationsInp
         resultContainer.innerHTML = '<p>Creating magic... Please wait.</p>';
 
         // استفاده از مسیر نسبی برای API endpoint
-        fetch('/generate-persona', { // <<< آدرس API حالا فقط مسیر است
+        fetch('https://phoenix-backend-rzd0.onrender.com', { // <<< آدرس API حالا فقط مسیر است
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
