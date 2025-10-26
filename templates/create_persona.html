@@ -5,41 +5,31 @@
         <h1>Persona Studio</h1>
         <p>Your AI-powered partner for crafting the perfect artist identity.</p>
 
-        {# فرم HTML - ID فرم اضافه شده برای اطمینان بیشتر #}
         <form id="personaForm">
-
             <div class="form-group">
                 <label for="artist-name">Artist Name:</label><br>
                 <input type="text" id="artist-name" name="artist-name">
-                {# <br><br> اضافی حذف شد چون form-group فاصله ایجاد می‌کند #}
             </div>
-
             <div class="form-group">
                 <label for="artist-style">Style / Genre:</label><br>
                 <input type="text" id="artist-style" name="artist-style">
             </div>
-
             <div class="form-group">
                 <label for="artist-inspirations">Inspirations:</label><br>
-                {# استایل عرض 100% بهتر است در CSS باشد، اما فعلا نگه می‌داریم #}
                 <textarea id="artist-inspirations" name="artist-inspirations" rows="4" style="width: 100%; box-sizing: border-box;"></textarea>
-                 {# box-sizing اضافه شد تا padding داخلی عرض را خراب نکند #}
             </div>
-
             <div class="form-group">
-                {# اطمینان از صحت کامل تگ دکمه #}
                 <button type="button" id="createButton">Create My Persona</button>
             </div>
+        </form>
 
-        </form> {# تگ فرم بسته شد #}
-
-        {# محلی برای نمایش نتیجه #}
         <div id="result-container" style="margin-top: 30px;">
             </div>
+    </div>
 
-    </div> {# تگ form-container بسته شد #}
-
-    {# فراخوانی اسکریپت در انتها #}
+    {# <<< تغییر کلیدی: اسکریپت به انتهای بلاک محتوا منتقل شد >>> #}
     <script src="/script.js"></script>
 
 {% endblock content %}
+
+{# <<< اطمینان حاصل کنید که هیچ اسکریپت دیگری بعد از این بلاک در layout.html فراخوانی نمی‌شود >>> #}
